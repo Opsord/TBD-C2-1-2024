@@ -17,7 +17,7 @@ public class TaskEntity {
     private String title;
     private String description;
     private Date expiredate;
-    private boolean status;
+    private boolean active;
     @ManyToOne
     private UserEntity user;
 
