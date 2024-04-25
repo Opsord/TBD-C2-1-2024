@@ -15,8 +15,13 @@ public interface TaskRepository extends JpaRepository<TaskEntity, Long> {
     @Modifying
     @Query(value = "INSERT INTO task_entity (title, description, expire_date, is_active, user_id) " +
             "VALUES (:title, :description, :expireDate, :isActive, :userId)", nativeQuery = true)
-    void insertTask(@Param("title") String title, @Param("description") String description,
+    TaskEntity insertTask(@Param("title") String title, @Param("description") String description,
                     @Param("expireDate") Date expireDate, @Param("isActive") boolean isActive, @Param("userId") Long userId);
+
+    @Transactional
+    @Modifying
+    @Query(value = "UPDATE task_entity SET is_active = :completed WHERE id = :taskId", nativeQuery = true)
+    void taskFinished(@Param("taskId") Long taskId, @Param("completed") boolean completed);
 
     @Query("SELECT t FROM TaskEntity t WHERE t.user.id = :userid")
     List<TaskEntity> findUserTasks(@Param("userid") String userid);
