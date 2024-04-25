@@ -32,7 +32,7 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> {
     @Query("SELECT u FROM UserEntity u WHERE u.username = :id")
     UserEntity findUserById(@Param("id") Long id);
 
-    //deleteBy Id
+    //deleteById
     @Query("DELETE FROM UserEntity WHERE id = :id")
     UserEntity deleteUser(@Param("id") Long id);
 
