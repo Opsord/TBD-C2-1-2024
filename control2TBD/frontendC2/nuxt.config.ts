@@ -1,6 +1,10 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   devtools: { enabled: true },
+  colorMode: {
+    preference: 'light'
+  },
+
   app
     : {
     pageTransition
@@ -10,11 +14,15 @@ export default defineNuxtConfig({
         : 'out-in'
     }
   },
+
   css: ['~/assets/css/main.css'],
+
   postcss: {
     plugins: {
       tailwindcss: {},
       autoprefixer: {},
     },
   },
+
+  modules: ["@nuxt/ui"]
 })
