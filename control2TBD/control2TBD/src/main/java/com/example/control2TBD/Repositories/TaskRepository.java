@@ -29,5 +29,5 @@ public interface TaskRepository extends JpaRepository<TaskEntity, Long> {
 
     @Query("DELETE FROM TaskEntity WHERE id = :id")
     TaskEntity deleteTask(@Param("id") Long id);
-    
+
 }
