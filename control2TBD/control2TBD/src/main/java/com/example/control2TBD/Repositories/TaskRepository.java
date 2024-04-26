@@ -1,6 +1,7 @@
 package com.example.control2TBD.Repositories;
 
 import com.example.control2TBD.Entities.TaskEntity;
+import com.example.control2TBD.Entities.UserEntity;
 import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -26,6 +27,7 @@ public interface TaskRepository extends JpaRepository<TaskEntity, Long> {
     @Query("SELECT t FROM TaskEntity t WHERE t.user.id = :userid")
     List<TaskEntity> findUserTasks(@Param("userid") String userid);
 
-
-
+    @Query("DELETE FROM TaskEntity WHERE id = :id")
+    TaskEntity deleteTask(@Param("id") Long id);
+    
 }
