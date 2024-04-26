@@ -1,6 +1,6 @@
 <template>
-  <div>
-      <h1> This shouldn't go away </h1>
+  <div class="h-svh flex flex-col">
+    <NavigationBar/>
     <slot />
   </div>
 </template>
