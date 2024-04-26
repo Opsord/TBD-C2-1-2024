@@ -21,9 +21,9 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> {
     @Query(value = "INSERT INTO user_entity (name, surname, username, password)" +
             "VALUES (:name, :surname, :username, :password)", nativeQuery = true)
     void insertUser(@Param("name") String name,
-                          @Param("surname") String surname,
-                          @Param("username") String username,
-                          @Param("password") String password);
+                    @Param("surname") String surname,
+                    @Param("username") String username,
+                    @Param("password") String password);
 
 //--------------------------UPDATE--------------------------
 

@@ -28,9 +28,9 @@ public class UserController {
 
  */
     @PostMapping("/register")
-    public String registerUser(@RequestBody UserEntity newUser) {
+    public ResponseEntity<UserEntity> registerUser(@RequestBody UserEntity newUser) {
         userService.newUser(newUser);
-        return homeLinkRedirect;
+        return ResponseEntity.ok(newUser);
     }
 
 
