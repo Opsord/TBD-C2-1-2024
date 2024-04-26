@@ -1,6 +1,6 @@
 <template>
   <div class="h-svh flex flex-col">
-    <NavigationBar/>
+    <NavigationBar />
     <slot />
   </div>
 </template>
