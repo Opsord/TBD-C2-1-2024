@@ -13,6 +13,7 @@ import java.util.Date;
 @Table(name = "task_entity")
 public class TaskEntity {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
     private String title;
