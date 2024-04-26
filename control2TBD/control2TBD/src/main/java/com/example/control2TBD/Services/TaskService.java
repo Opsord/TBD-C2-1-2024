@@ -6,6 +6,7 @@ import com.example.control2TBD.Repositories.TaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -23,22 +24,25 @@ public class TaskService {
 
 
     //lista de activos
-    public List<TaskEntity> statefilter(Long userid, String state) {
+    public ArrayList<TaskEntity> statefilter(Long userid, String state) {
         List<TaskEntity> allTask = taskRepository.findUserTasks(userid);
-        List<TaskEntity> stateTask = null;
-        if (state.equals("Complet")) {
+        ArrayList<TaskEntity> stateTask =  new ArrayList<>();
+        if (state.equals("Complete")) {
             for (int i = 0; i < allTask.size(); i++) {
                 if (allTask.get(i).isActive()) {
                     stateTask.add(allTask.get(i));
                 }
             }
-        } else {
+            return stateTask;
+        } else if (state.equals("Incomplete")) {
             for (int i = 0; i < allTask.size(); i++) {
                 if (!allTask.get(i).isActive()) {
                     stateTask.add(allTask.get(i));
                 }
             }
+
         }
-        return stateTask;
+
+        return (ArrayList<TaskEntity>) allTask;
     }
 }

@@ -25,6 +25,9 @@ public class TaskController {
         return ResponseEntity.ok(task);
     }
 
+
+    //state = Complete  => return lista de tareas completas
+    //state = Incomplete => return lista de tareas incompletas
     @GetMapping("/{id}/{state}")
     public ResponseEntity<List<TaskEntity>> listComplete(@PathVariable String state, @PathVariable Long id){
         List<TaskEntity> listState = taskService.statefilter(id,state);
