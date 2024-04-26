@@ -18,9 +18,10 @@ public class TaskEntity {
     private String description;
     private Date expiredate;
     private boolean active;
+
+    // Relación many-to-one con UserEntity
     @ManyToOne
+    @JoinColumn(name = "idUser") // Nombre de la columna que actúa como clave externa
     private UserEntity user;
-
-
 
 }
