@@ -7,9 +7,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 
 import java.util.Date;
 
+@Repository
 public interface UserRepository extends JpaRepository<UserEntity, Long> {
 //--------------------------CREATE--------------------------
 
@@ -17,19 +19,11 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> {
     @Transactional
     @Modifying
     @Query(value = "INSERT INTO user_entity (name, surname, username, password)" +
-
-            "VALUES (:name, :surname, :username,segun yo :password)", nativeQuery = true)
-    UserEntity insertUser(@Param("name") String name, @Param("surname") String surname,
-                          @Param("username") String username, @Param("password") String password);
-
-
-
             "VALUES (:name, :surname, :username, :password)", nativeQuery = true)
-    UserEntity insertUser(@Param("name") String name,
+    void insertUser(@Param("name") String name,
                           @Param("surname") String surname,
                           @Param("username") String username,
                           @Param("password") String password);
-
 
 //--------------------------UPDATE--------------------------
 
