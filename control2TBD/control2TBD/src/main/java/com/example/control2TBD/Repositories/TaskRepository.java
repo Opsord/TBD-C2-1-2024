@@ -27,6 +27,10 @@ public interface TaskRepository extends JpaRepository<TaskEntity, Long> {
     @Query("SELECT t FROM TaskEntity t WHERE t.user.id = :userid")
     List<TaskEntity> findUserTasks(@Param("userid") String userid);
 
+    @Query("DELETE FROM TaskEntity WHERE id = :id")
+    TaskEntity deleteTask(@Param("id") Long id);
+    
+
 
 
 }
