@@ -1,7 +1,6 @@
 package com.example.control2TBD.Repositories;
 
 import com.example.control2TBD.Entities.TaskEntity;
-import com.example.control2TBD.Entities.UserEntity;
 import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -20,7 +19,7 @@ public interface TaskRepository extends JpaRepository<TaskEntity, Long> {
     @Modifying
     @Query(value = "INSERT INTO task_entity (title, description, expire_date, is_active, user_id) " +
             "VALUES (:title, :description, :expireDate, :isActive, :userId)", nativeQuery = true)
-    TaskEntity insertTask(@Param("title") String title,
+    void insertTask(@Param("title") String title,
                           @Param("description") String description,
                           @Param("expireDate") Date expireDate,
                           @Param("isActive") boolean isActive,
