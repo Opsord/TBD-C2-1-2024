@@ -41,9 +41,16 @@ public class UserController {
 
         UserEntity userFound = userService.login(username, password);
 
+<<<<<<< HEAD
+        if (userFounded != null) {
+            System.out.println("funciona");
+            return ResponseEntity.ok(userFounded);
+=======
         if (userFound != null) {
             return ResponseEntity.ok(userFound);
+>>>>>>> 55563d61b0840e3807824e9e7edcaad5620af2a0
         } else {
+            System.out.println("No funciona");
             return ResponseEntity.notFound().build();
         }
 
