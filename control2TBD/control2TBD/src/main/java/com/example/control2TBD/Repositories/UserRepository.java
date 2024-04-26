@@ -33,7 +33,7 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> {
     void passwordChange(@Param("id") Long id, @Param("password") String password);
 
 
-//--------------------------READ--------------------------
+//---------------------------READ---------------------------
 
     //findByUsername
     @Query("SELECT u FROM UserEntity u WHERE u.username = :username")
