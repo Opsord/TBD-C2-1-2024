@@ -11,27 +11,48 @@ import org.springframework.data.repository.query.Param;
 import java.util.Date;
 
 public interface UserRepository extends JpaRepository<UserEntity, Long> {
+//--------------------------CREATE--------------------------
 
+    //insertUser
     @Transactional
     @Modifying
     @Query(value = "INSERT INTO user_entity (name, surname, username, password)" +
+
             "VALUES (:name, :surname, :username,segun yo :password)", nativeQuery = true)
     UserEntity insertUser(@Param("name") String name, @Param("surname") String surname,
                           @Param("username") String username, @Param("password") String password);
 
+
+
+            "VALUES (:name, :surname, :username, :password)", nativeQuery = true)
+    UserEntity insertUser(@Param("name") String name,
+                          @Param("surname") String surname,
+                          @Param("username") String username,
+                          @Param("password") String password);
+
+
+//--------------------------UPDATE--------------------------
+
+    //UpdatePassword
 
     @Transactional
     @Modifying
     @Query(value = "UPDATE user_entity SET password = :password WHERE id = :id", nativeQuery = true)
     void passwordChange(@Param("id") Long id, @Param("password") String password);
 
-        //findByUsername
+
+//---------------------------READ---------------------------
+
+    //findByUsername
     @Query("SELECT u FROM UserEntity u WHERE u.username = :username")
     UserEntity findUserByUsername(@Param("username") String username);
 
     //findById
     @Query("SELECT u FROM UserEntity u WHERE u.username = :id")
     UserEntity findUserById(@Param("id") Long id);
+
+
+//--------------------------DELETE--------------------------
 
     //deleteById
     @Query("DELETE FROM UserEntity WHERE id = :id")
