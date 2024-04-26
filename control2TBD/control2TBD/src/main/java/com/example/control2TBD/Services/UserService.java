@@ -21,10 +21,10 @@ public class UserService {
 
     public UserEntity login(String username, String password) {
         try {
-            UserEntity userFounded = userRepository.findUserByUsername(username);
+            UserEntity userFound = userRepository.findUserByUsername(username);
 
-            if(userFounded.getPassword().equals(password)){
-                return userFounded;
+            if(userFound.getPassword().equals(password)){
+                return userFound;
             }
             return null;
         } catch (Exception e) {

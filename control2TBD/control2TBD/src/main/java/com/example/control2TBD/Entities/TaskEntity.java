@@ -22,7 +22,7 @@ public class TaskEntity {
 
     // Relación many-to-one con UserEntity
     @ManyToOne
-    @JoinColumn(name = "idUser") // Nombre de la columna que actúa como clave externa
+    @JoinColumn(name = "user_id") // Nombre de la columna que actúa como clave externa
     private UserEntity user;
 
 }
