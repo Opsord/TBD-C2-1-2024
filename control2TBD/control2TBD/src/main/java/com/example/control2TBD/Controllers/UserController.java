@@ -39,10 +39,10 @@ public class UserController {
         String username = user.getUsername();
         String password = user.getPassword();
 
-        UserEntity userFounded = userService.login(username, password);
+        UserEntity userFound = userService.login(username, password);
 
-        if (userFounded != null) {
-            return ResponseEntity.ok(userFounded);
+        if (userFound != null) {
+            return ResponseEntity.ok(userFound);
         } else {
             return ResponseEntity.notFound().build();
         }
