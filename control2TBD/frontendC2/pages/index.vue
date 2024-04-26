@@ -1,8 +1,5 @@
 <template>
     <div>
-        <h1> Hello world!!! </h1>
-        <h1> Hello world!!! </h1>
-        <h1> Hello world!!! </h1>
-        <NuxtLink to="/hello"> Press me! </NuxtLink>
+        <h1> Agregar algo bonito aca nose</h1>
     </div>
 </template>
