@@ -1,5 +1,6 @@
 package com.example.control2TBD.Controllers;
 
+import com.example.control2TBD.Auth.JwtUtil;
 import com.example.control2TBD.Entities.UserEntity;
 import com.example.control2TBD.Services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,20 +22,33 @@ public class UserController {
 
 
     @PostMapping("/register")
-    public ResponseEntity<UserEntity> registerUser(@RequestBody UserEntity newUser) {
-        userService.newUser(newUser);
-        return ResponseEntity.ok(newUser);
+    public ResponseEntity<?> registerUser(@RequestBody UserEntity newUser) {
+        System.out.println(newUser);
+        UserEntity registeredUser = userService.newUser(newUser);
+        if (registeredUser != null) {
+            // Generate JWT token if registration is successful
+            String token = JwtUtil.generateToken(registeredUser.getUsername());
+            // Include token in the response
+            return ResponseEntity.ok()
+                    .header("Authorization", "Bearer " + token) // Token in header
+                    .body(registeredUser);
+        } else {
+            return ResponseEntity.badRequest().body("Registration failed");
+        }
     }
-
-
     @PostMapping("/login")
-    public ResponseEntity<UserEntity> login(@RequestBody UserEntity user) {
+    public ResponseEntity<?> login(@RequestBody UserEntity user) {
         String username = user.getUsername();
         String password = user.getPassword();
         UserEntity userFound = userService.login(username, password);
 
         if (userFound != null) {
-            return ResponseEntity.ok(userFound);
+            // Generate JWT token
+            String token = JwtUtil.generateToken(username);
+            // Include token in the response header or body
+            return ResponseEntity.ok()
+                    .header("Authorization", "Bearer " + token) // Token in header
+                    .body(userFound);
         } else {
             return ResponseEntity.notFound().build();
         }
