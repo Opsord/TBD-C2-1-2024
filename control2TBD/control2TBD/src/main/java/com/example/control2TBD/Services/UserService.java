@@ -22,6 +22,7 @@ public class UserService {
     public UserEntity login(String username, String password) {
         try {
             UserEntity userFounded = userRepository.findUserByUsername(username);
+
             if(userFounded.getPassword().equals(password)){
                 return userFounded;
             }
