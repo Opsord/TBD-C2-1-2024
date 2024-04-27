@@ -2,6 +2,14 @@
 import type { MenuItem } from 'primevue/menuitem';
 import TabMenu from 'primevue/tabmenu';
 import 'primeicons/primeicons.css'
+import { useRouter } from "vue-router";
+const router = useRouter()
+
+async function logout() {
+  localStorage.removeItem('authToken');
+  localStorage.removeItem('idUser');
+  router.push('/')
+}
 
 const items: MenuItem[] = [
   {
@@ -20,8 +28,13 @@ const items: MenuItem[] = [
     label: "Tareas Finalizadas",
     icon: "pi pi-list-check",
     url: '/pending'
-
   },
+  {
+    label: "Log out",
+    icon: "pi pi-sign-out ",
+    command: (event: any) => { logout() }
+
+  }
 ]
 </script>
 
