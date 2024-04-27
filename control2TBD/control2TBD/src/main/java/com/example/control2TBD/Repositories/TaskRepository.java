@@ -1,6 +1,7 @@
 package com.example.control2TBD.Repositories;
 
 import com.example.control2TBD.Entities.TaskEntity;
+import com.example.control2TBD.Entities.UserEntity;
 import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -10,6 +11,8 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
+
 @Repository
 public interface TaskRepository extends JpaRepository<TaskEntity, Long> {
 //--------------------------CREATE--------------------------
@@ -34,6 +37,11 @@ public interface TaskRepository extends JpaRepository<TaskEntity, Long> {
     @Query(value = "UPDATE task_entity SET is_active = :completed WHERE id = :taskId", nativeQuery = true)
     void taskFinished(@Param("taskId") Long taskId, @Param("completed") boolean completed);
 
+    @Transactional
+    @Modifying
+    @Query(value = "UPDATE task_entity SET description = :description WHERE id = :taskId", nativeQuery = true)
+    void updateDescription(@Param("taskId") Long taskId, @Param("description") String description);
+
 //---------------------------READ---------------------------
 
     //FindUserTaskByIduser
@@ -49,6 +57,10 @@ public interface TaskRepository extends JpaRepository<TaskEntity, Long> {
     //FindTaskByKeyWord
     @Query("SELECT t FROM TaskEntity t WHERE t.description ILIKE %:keyword% AND t.user.id = :userid")
     List<TaskEntity> findUserTaskByKeyWord(@Param("userid") Long userid, @Param("keyword") String keyword);
+
+    @Query("SELECT t FROM TaskEntity t WHERE t.id = :id")
+    TaskEntity findTaskById(@Param("id") Long id);
+
 
 
 
