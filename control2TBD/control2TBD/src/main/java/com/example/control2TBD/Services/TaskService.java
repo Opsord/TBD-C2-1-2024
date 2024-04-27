@@ -24,27 +24,24 @@ public class TaskService {
 
 
     //List of task by state
-    public ArrayList<TaskEntity> stateFilter(Long userid, String state) {
+    public List<TaskEntity> stateFilter(Long userid, String state) {
         List<TaskEntity> allTask = taskRepository.findUserTasks(userid);
-        ArrayList<TaskEntity> stateTask =  new ArrayList<>();
+        List<TaskEntity> stateTask =  new ArrayList<>();
         if (state.equals("Complete")) {
-            for (int i = 0; i < allTask.size(); i++) {
-                if (allTask.get(i).isActive()) {
-                    stateTask.add(allTask.get(i));
+            for(TaskEntity task : allTask){
+                if(task.isActive()){
+                    stateTask.add(task);
                 }
             }
-            return stateTask;
-        } else if (state.equals("Incomplete")) {
-            for (int i = 0; i < allTask.size(); i++) {
-                if (!allTask.get(i).isActive()) {
-                    stateTask.add(allTask.get(i));
+        }if (state.equals("Incomplete")) {
+            for(TaskEntity task : allTask){
+                if(!task.isActive()){
+                    stateTask.add(task);
                 }
             }
-
         }
-        return (ArrayList<TaskEntity>) allTask;
+        return stateTask;
     }
-
 
 
     //Filter by title
