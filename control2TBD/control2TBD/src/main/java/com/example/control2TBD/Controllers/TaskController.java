@@ -5,6 +5,7 @@ import com.example.control2TBD.Entities.UserEntity;
 import com.example.control2TBD.Services.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.config.Task;
 import org.springframework.stereotype.Controller;
@@ -57,5 +58,15 @@ public class TaskController {
         return ResponseEntity.ok(listTask);
 
     }
+
+
+    //http://localhost:8090/task/UpdateTitle/1/title?newTitle=a
+    //http://localhost:8090/task/UpdateTitle/2
+    @PutMapping("/UpdateTitle/{taskId}")
+    public ResponseEntity<String> updateTaskTitle(@PathVariable Long taskId, @RequestBody String newTitle) {
+        taskService.updateTaskTitle(taskId, newTitle);
+        return new ResponseEntity<>("Título de tarea actualizado correctamente", HttpStatus.OK);
+    }
+
 
 }

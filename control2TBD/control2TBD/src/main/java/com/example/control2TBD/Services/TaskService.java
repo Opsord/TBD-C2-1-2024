@@ -70,5 +70,18 @@ public class TaskService {
         return tasks;
     }
 
+/*
+    public TaskEntity updateTaskTitle(Long taskId, String newTitle) {
+        TaskEntity newTask = taskRepository.updateTitle(taskId, newTitle);
+        return newTask;
+    }
+
+ */
+
+    public void updateTaskTitle(Long taskId, String newTitle) {
+        taskRepository.updateTitle(taskId, newTitle);
+    }
+
+
 
 }
