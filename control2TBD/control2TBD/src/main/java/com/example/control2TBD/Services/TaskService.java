@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -82,6 +83,14 @@ public class TaskService {
         taskRepository.updateTitle(taskId, newTitle);
     }
 
+
+    public void updateTaskDescription(Long taskId, String newDescription) {
+        taskRepository.updateDescription(taskId, newDescription);
+    }
+
+    public void updateTaskDate(Long taskId, Date newDate) {
+        taskRepository.updateDate(taskId, newDate);
+    }
 
 
 

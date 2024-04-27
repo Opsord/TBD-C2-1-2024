@@ -11,6 +11,7 @@ import org.springframework.scheduling.config.Task;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -52,9 +53,7 @@ public class TaskController {
 
     }
 
-<<<<<<< HEAD
-    
-=======
+
     @GetMapping("/taskByUser/{id}")
     public ResponseEntity<List<TaskEntity>> taskByUser(@PathVariable Long id){
         List<TaskEntity> listTask = taskService.getTaskByIdUser(id);
@@ -70,6 +69,18 @@ public class TaskController {
         return new ResponseEntity<>("Título de tarea actualizado correctamente", HttpStatus.OK);
     }
 
->>>>>>> 5b7553dc5cc116189bc426b93e37d6fe71e50f41
+    @PutMapping("/UpdateDes/{taskId}")
+    public ResponseEntity<String> updateTaskDescription(@PathVariable Long taskId, @RequestBody String newDes) {
+        taskService.updateTaskDescription(taskId, newDes);
+        return new ResponseEntity<>("Descripcion de tarea actualizado correctamente", HttpStatus.OK);
+    }
+
+    @PutMapping("/UpdateDate/{taskId}")
+    public ResponseEntity<String> updateTaskDate(@PathVariable Long taskId, @RequestBody Date newDate) {
+        taskService.updateTaskDate(taskId, newDate);
+        return new ResponseEntity<>("Fecha de expiracion de tarea actualizado correctamente", HttpStatus.OK);
+    }
+
+
 
 }

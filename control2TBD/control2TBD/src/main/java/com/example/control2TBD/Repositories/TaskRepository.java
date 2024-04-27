@@ -24,7 +24,7 @@ public interface TaskRepository extends JpaRepository<TaskEntity, Long> {
             "VALUES (:title, :description, :expireDate, :isActive, :userId)", nativeQuery = true)
     void insertTask(@Param("title") String title,
                           @Param("description") String description,
-                          @Param("expireDate") Date expireDate,
+                          @Param("expireDate") Date expiredate,
                           @Param("isActive") boolean isActive,
                           @Param("userId") Long userId);
 
@@ -37,12 +37,12 @@ public interface TaskRepository extends JpaRepository<TaskEntity, Long> {
     @Query(value = "UPDATE task_entity SET is_active = :completed WHERE id = :taskId", nativeQuery = true)
     void taskFinished(@Param("taskId") Long taskId, @Param("completed") boolean completed);
 
-<<<<<<< HEAD
+
     @Transactional
     @Modifying
     @Query(value = "UPDATE task_entity SET description = :description WHERE id = :taskId", nativeQuery = true)
     void updateDescription(@Param("taskId") Long taskId, @Param("description") String description);
-=======
+
 
     //Change title
     @Transactional
@@ -50,7 +50,11 @@ public interface TaskRepository extends JpaRepository<TaskEntity, Long> {
     @Query(value = "UPDATE task_entity SET title = :title WHERE id = :taskId", nativeQuery = true)
     void updateTitle(@Param("taskId") Long taskId, @Param("title") String title);
 
->>>>>>> 5b7553dc5cc116189bc426b93e37d6fe71e50f41
+    @Transactional
+    @Modifying
+    @Query(value = "UPDATE task_entity SET expiredate = :expiredate WHERE id = :taskId", nativeQuery = true)
+    void updateDate(@Param("taskId") Long taskId, @Param("expiredate") Date expiredate);
+
 
 //---------------------------READ---------------------------
 
