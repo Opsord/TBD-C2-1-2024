@@ -60,7 +60,6 @@ public class TaskController {
     }
 
 
-    //http://localhost:8090/task/UpdateTitle/1/title?newTitle=a
     //http://localhost:8090/task/UpdateTitle/2
     @PutMapping("/UpdateTitle/{taskId}")
     public ResponseEntity<String> updateTaskTitle(@PathVariable Long taskId, @RequestBody String newTitle) {
