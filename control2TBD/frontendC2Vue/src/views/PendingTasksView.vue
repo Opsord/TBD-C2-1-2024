@@ -61,7 +61,8 @@ async function fetchTasks() {
     const id = localStorage.getItem('idUser');
     try {
         const response = await fetch(`http://localhost:8091/task/taskByUser/${id}`, { headers: { 'Authorization': token } });
-        tasks.value = response.data; // Make sure to adjust this according to the actual structure of your response
+        const result = await response.json()
+        tasks.value = result; // Make sure to adjust this according to the actual structure of your response
     } catch (error) {
         console.error('There was an error fetching the user data:', error);
     }
@@ -74,7 +75,8 @@ onMounted(async () => { await fetchTasks() })
 <template>
     <div class=" h-full flex flex-col items-center  align-middle gap-4 mt-12 ">
 
-        {{ tasks }}
+
+
         <Button label="Crear nueva tarea" @click="visible = true" />
         <Dialog v-model:visible="visible" modal header="Crear Tarea" :style="{ width: '25rem' }">
             <span class="p-text-secondary block mb-5">Agregue la información</span>
@@ -96,6 +98,11 @@ onMounted(async () => { await fetchTasks() })
                 <Button type="button" label="Save" @click="onSubmit"></Button>
             </div>
         </Dialog>
+        <div v-if="tasks && tasks.length > 0">
+            <div class=" bg-red-500" v-for="task in tasks" :key="task.id">
+                <p>{{ task.title }}</p> <!-- Mustache syntax corrected from {task.title} to {{ task.title }} -->
+            </div>
+        </div>
 
 
     </div>
