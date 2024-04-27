@@ -36,6 +36,7 @@ const registerPost = async () => {
 
         const result = await response.json();
         if (result) {
+            localStorage.setItem('idUser', result.id)
             const token = response.headers.get('Authorization');
             localStorage.setItem('authToken', token as string);  // Store the token in localStorage
             console.log(token)

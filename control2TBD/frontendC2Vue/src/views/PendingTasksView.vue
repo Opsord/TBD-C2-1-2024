@@ -5,11 +5,12 @@ import Button from "primevue/button";
 import Dialog from "primevue/dialog";
 import Calendar from "primevue/calendar";
 
+const id = localStorage.getItem('idUser');
+const token = localStorage.getItem('authToken');
 const registerPost = async () => {
-    const token = localStorage.getItem('authToken');
     if (token === null) { return }
     try {
-        const response = await fetch('http://localhost:8091/task/create', {
+        const response = await fetch(`http://localhost:8091/task/create`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -43,7 +44,6 @@ async function onSubmit(event: Event) {
     }
 }
 
-const id = localStorage.getItem('idUser');
 const state = ref({
     title: '',
     description: '',
@@ -60,7 +60,7 @@ const tasks = ref()
 async function fetchTasks() {
     const id = localStorage.getItem('idUser');
     try {
-        const response = await fetch(`http://localhost:8091/task/${id}/false`);
+        const response = await fetch(`http://localhost:8091/task/taskByUser/${id}`, { headers: { 'Authorization': token } });
         tasks.value = response.data; // Make sure to adjust this according to the actual structure of your response
     } catch (error) {
         console.error('There was an error fetching the user data:', error);

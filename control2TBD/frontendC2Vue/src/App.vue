@@ -7,6 +7,7 @@ const router = useRouter()
 
 async function logout() {
   localStorage.removeItem('authToken');
+  localStorage.removeItem('idUser');
   router.push('/')
 }
 
