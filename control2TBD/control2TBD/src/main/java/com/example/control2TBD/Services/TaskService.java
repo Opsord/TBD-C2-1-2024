@@ -65,6 +65,10 @@ public class TaskService {
     }
 
 
+    public List<TaskEntity> getTaskByIdUser(Long userid) {
+        List<TaskEntity> tasks = taskRepository.findUserTasks(userid);
+        return tasks;
+    }
 
 
 }
