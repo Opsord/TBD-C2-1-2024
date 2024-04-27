@@ -38,6 +38,7 @@ const registerPost = async () => {
         if (result) {
             const token = response.headers.get('Authorization');
             localStorage.setItem('authToken', token as string);  // Store the token in localStorage
+            localStorage.setItem('idUser', result.id)
             console.log(token)
             console.log('Registration successful, token stored');
             // Optionally, redirect the user or perform other actions
