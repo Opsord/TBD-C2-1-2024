@@ -34,4 +34,21 @@ public class TaskController {
         return ResponseEntity.ok(listState);
 
     }
+
+
+    @GetMapping("/titleFilter/{id}/{title}")
+    public ResponseEntity<List<TaskEntity>> taskByTitle(@PathVariable Long id, @PathVariable String title){
+        List<TaskEntity> listTask = taskService.titleFilter(id, title);
+        return ResponseEntity.ok(listTask);
+
+    }
+
+
+    @GetMapping("/keyWordFilter/{id}/{keyWord}")
+    public ResponseEntity<List<TaskEntity>> listTaskByKeyWord(@PathVariable Long id, @PathVariable String keyWord){
+        List<TaskEntity> listTask = taskService.keyWordFilter(id,keyWord);
+        return ResponseEntity.ok(listTask);
+
+    }
+
 }

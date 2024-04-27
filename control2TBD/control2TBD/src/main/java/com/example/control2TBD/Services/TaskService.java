@@ -48,44 +48,26 @@ public class TaskService {
 
 
     //Filter by title
-    public ArrayList<TaskEntity> titleFilter(Long userid, String title) {
+    public List<TaskEntity> titleFilter(Long userid, String title) {
         List<TaskEntity> allTask = taskRepository.findUserTasks(userid);
-        ArrayList<TaskEntity> stateTask =  new ArrayList<>();
+        List<TaskEntity> stateTask =  new ArrayList<>();
         for(TaskEntity task : allTask){
             if(task.getTitle().equals(title)){
                 stateTask.add(task);
             }
         }
-        return (ArrayList<TaskEntity>) allTask;
+        return stateTask;
     }
 
 
 
-    /*
     //Filer by key word
-    public ArrayList<TaskEntity> keyWordFilter(Long userid, String keyWord) {
-        List<TaskEntity> allTask = taskRepository.findUserTasks(userid);
-        ArrayList<TaskEntity> stateTask =  new ArrayList<>();
-        if (state.equals("Complete")) {
-            for (int i = 0; i < allTask.size(); i++) {
-                if (allTask.get(i).isActive()) {
-                    stateTask.add(allTask.get(i));
-                }
-            }
-            return stateTask;
-        } else if (state.equals("Incomplete")) {
-            for (int i = 0; i < allTask.size(); i++) {
-                if (!allTask.get(i).isActive()) {
-                    stateTask.add(allTask.get(i));
-                }
-            }
-
-        }
-
-        return (ArrayList<TaskEntity>) allTask;
+    public List<TaskEntity> keyWordFilter(Long userid, String keyWord) {
+        List<TaskEntity> keyWordTask = taskRepository.findUserTaskByKeyWord(userid, keyWord);
+        return keyWordTask;
     }
-    
-     */
+
+
 
 
 }

@@ -12,7 +12,7 @@ public class FilterConfig {
     public FilterRegistrationBean<JwtAuthenticationFilter> jwtFilterRegistration() {
         FilterRegistrationBean<JwtAuthenticationFilter> registrationBean = new FilterRegistrationBean<>();
         registrationBean.setFilter(new JwtAuthenticationFilter());
-        registrationBean.addUrlPatterns("/task/*"); // Specify URL patterns you want to secure
+        registrationBean.addUrlPatterns("/dev/dev"); // Specify URL patterns you want to secure
         return registrationBean;
     }
 }

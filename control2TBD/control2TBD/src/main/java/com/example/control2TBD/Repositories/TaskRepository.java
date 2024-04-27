@@ -46,6 +46,12 @@ public interface TaskRepository extends JpaRepository<TaskEntity, Long> {
     List<TaskEntity> findUserTaskByTitle(@Param("userid") Long userid, @Param("title") String title);
 
 
+    //FindTaskByKeyWord
+    @Query("SELECT t FROM TaskEntity t WHERE t.description ILIKE %:keyword% AND t.user.id = :userid")
+    List<TaskEntity> findUserTaskByKeyWord(@Param("userid") Long userid, @Param("keyword") String keyword);
+
+
+
 //--------------------------DELETE--------------------------
 
     //DeleteTaskById
