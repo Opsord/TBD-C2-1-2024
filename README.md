@@ -1,4 +1,5 @@
 # TBD-C2-1-2024
+
 Control 2 de Taller de Base de Datos
 
 ----BACKEND----
@@ -18,3 +19,34 @@ Los datos que debe cambiar son:
 nota: Las tablas y la población inicial se crean al momento de ejecutar el backend
 
 ----FrontEnd----
+
+## Requisitos
+
+- Tener instalado algún package manager
+- node,bun,yarn,pnpm
+
+## Ir a la carpeta en la terminal
+
+```
+cd ./frontendC2Vue
+```
+
+## Instalar paquetes
+
+```sh
+npm i
+# En caso de usar otro package manager
+# bun
+bun i
+# pnpm
+pnpm i
+```
+
+## Iniciar proyecto en modo dev
+
+```sh
+npm run dev
+# bun
+bun run dev
+
+```
