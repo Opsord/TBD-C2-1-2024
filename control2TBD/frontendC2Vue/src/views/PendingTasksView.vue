@@ -177,9 +177,10 @@ const keyword = ref('')
 const filterTitle = ref('')
 async function fetchTasksKeyword() {
     const id = localStorage.getItem('idUser');
+    if (keyword.value.length < 2) { return }
     if (!token) { return }
     try {
-        const response = await fetch(`http://localhost:8091/task/${id}/${keyword.value}`, { headers: { 'Authorization': token } });
+        const response = await fetch(`http://localhost:8091/task/keyWordFilter/${id}/${keyword.value}`, { headers: { 'Authorization': token } });
         const result = await response.json()
         tasks.value = result; // Make sure to adjust this according to the actual structure of your response
     } catch (error) {
@@ -189,9 +190,10 @@ async function fetchTasksKeyword() {
 
 async function fetchTasksTitle() {
     const id = localStorage.getItem('idUser');
+    if (filterTitle.value.length < 2) { return }
     if (!token) { return }
     try {
-        const response = await fetch(`http://localhost:8091/task/${id}/${filterTitle.value}`, { headers: { 'Authorization': token } });
+        const response = await fetch(`http://localhost:8091/task/titleFilter/${id}/${filterTitle.value}`, { headers: { 'Authorization': token } });
         const result = await response.json()
         tasks.value = result; // Make sure to adjust this according to the actual structure of your response
     } catch (error) {
