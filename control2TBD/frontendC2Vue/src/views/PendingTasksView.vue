@@ -173,6 +173,33 @@ async function fetchTasks() {
     }
 }
 
+const keyword = ref('')
+const filterTitle = ref('')
+async function fetchTasksKeyword() {
+    const id = localStorage.getItem('idUser');
+    if (!token) { return }
+    try {
+        const response = await fetch(`http://localhost:8091/task/${id}/${keyword.value}`, { headers: { 'Authorization': token } });
+        const result = await response.json()
+        tasks.value = result; // Make sure to adjust this according to the actual structure of your response
+    } catch (error) {
+        console.error('There was an error fetching the user data:', error);
+    }
+}
+
+async function fetchTasksTitle() {
+    const id = localStorage.getItem('idUser');
+    if (!token) { return }
+    try {
+        const response = await fetch(`http://localhost:8091/task/${id}/${filterTitle.value}`, { headers: { 'Authorization': token } });
+        const result = await response.json()
+        tasks.value = result; // Make sure to adjust this according to the actual structure of your response
+    } catch (error) {
+        console.error('There was an error fetching the user data:', error);
+    }
+}
+
+
 
 
 onMounted(async () => { await fetchTasks() })
@@ -180,6 +207,21 @@ onMounted(async () => { await fetchTasks() })
 <template>
     <div class=" h-full flex flex-col items-center  align-middle gap-4 mt-12 ">
         <Button label="Crear nueva tarea" @click="visible = true" />
+
+        <div class="space-y-4">
+            <div class="space-x-1">
+                <InputText type="text" placeholder="Filtrar por palabra clave" v-model="keyword" />
+                <Button icon="pi pi-search" @click="fetchTasksKeyword" />
+            </div>
+            <div class="space-x-1">
+                <InputText placeholder="Filtar por titulo" type="text" v-model="filterTitle" />
+                <Button icon="pi pi-search" @click="fetchTasksTitle" />
+            </div>
+        </div>
+
+
+
+
         <Dialog v-model:visible="visible" modal header="Crear Tarea" :style="{ width: '25rem' }">
             <span class="p-text-secondary block mb-5">Agregue la información</span>
             <div class="flex align-items-center gap-3 mb-3">
