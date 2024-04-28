@@ -3,6 +3,9 @@ import { z } from "zod"
 import { ref } from "vue";
 import InputText from "primevue/inputtext";
 import Button from "primevue/button";
+import { useRouter } from "vue-router";
+
+const router = useRouter()
 
 const schema = z.object({
     name: z.string().min(3, 'Ingrese su nombre'),
@@ -20,6 +23,8 @@ const state = ref({
 
 })
 
+
+
 const registerPost = async () => {
     try {
         const response = await fetch('http://localhost:8091/user/register', {
@@ -36,11 +41,13 @@ const registerPost = async () => {
 
         const result = await response.json();
         if (result) {
-            localStorage.setItem('idUser', result.id)
             const token = response.headers.get('Authorization');
             localStorage.setItem('authToken', token as string);  // Store the token in localStorage
+            localStorage.setItem('idUser', result.id)
             console.log(token)
             console.log('Registration successful, token stored');
+
+            router.push('/login')
             // Optionally, redirect the user or perform other actions
         } else {
             console.error('Token was not provided in the response');
@@ -58,6 +65,7 @@ async function onSubmit(event: Event) {
     try {
         schema.parse(state.value); // Validate the form data
         await registerPost();
+        router.push('/login')
 
     } catch (error) {
         errors.value = "Contraseña debe ser de 8 caracters"
@@ -82,6 +90,9 @@ async function onSubmit(event: Event) {
         <InputText type="password" v-model="state.password" />
         <h1 v-if="errors">{{ errors }}</h1>
         <Button label="Registrarse" @click="onSubmit" />
+        <h1>¿Ya estas registrado?</h1>
+        <Button label="Log in" @click="router.push('/login')" />
+
 
     </div>
 

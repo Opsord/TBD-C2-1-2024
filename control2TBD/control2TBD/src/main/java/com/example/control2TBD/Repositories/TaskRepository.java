@@ -34,7 +34,7 @@ public interface TaskRepository extends JpaRepository<TaskEntity, Long> {
     //ChangeIs_activeById
     @Transactional
     @Modifying
-    @Query(value = "UPDATE task_entity SET is_active = :completed WHERE id = :taskId", nativeQuery = true)
+    @Query(value = "UPDATE task_entity SET active = :completed WHERE id = :taskId", nativeQuery = true)
     void taskFinished(@Param("taskId") Long taskId, @Param("completed") boolean completed);
 
 
@@ -82,7 +82,7 @@ public interface TaskRepository extends JpaRepository<TaskEntity, Long> {
 
     //DeleteTaskById
 
+    @Transactional
+    @Modifying
     @Query("DELETE FROM TaskEntity WHERE id = :id")
-    TaskEntity deleteTask(@Param("id") Long id);
-
-}
+    void deleteTask(@Param("id") Long id);}

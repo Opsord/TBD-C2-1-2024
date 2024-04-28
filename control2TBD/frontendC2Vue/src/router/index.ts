@@ -3,6 +3,7 @@ import HomeView from '../views/HomeView.vue'
 import RegisterView from '@/views/RegisterView.vue'
 import LoginView from '@/views/LoginView.vue'
 import PendingTasksView from '@/views/PendingTasksView.vue'
+import FinishedTasksView from '@/views/FinishedTasksView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -30,6 +31,12 @@ const router = createRouter({
       name: 'tasks',
       component: PendingTasksView,
     },
+
+    {
+      path: '/finished',
+      name: 'finished',
+      component: FinishedTasksView,
+    },
   ]
 })
 
@@ -48,10 +55,13 @@ function isTokenExpired(token: string | null) {
 
 router.beforeEach((to, from, next) => {
   const token = localStorage.getItem('authToken');
+  const idUser = localStorage.getItem('idUser');
   const isExpired = isTokenExpired(token);
 
+
+
   // If the token is expired or not present, allow access to login or register routes
-  if (isExpired) {
+  if (isExpired || !idUser || idUser === 'null') {
     if (to.name === 'login' || to.name === 'register') {
       next(); // Proceed to the requested route
     } else {

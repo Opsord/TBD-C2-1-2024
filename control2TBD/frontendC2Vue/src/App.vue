@@ -27,14 +27,15 @@ const items: MenuItem[] = [
   {
     label: "Tareas Finalizadas",
     icon: "pi pi-list-check",
-    url: '/pending'
+    url: '/finished'
   },
   {
+
     label: "Log out",
     icon: "pi pi-sign-out ",
     command: (event: any) => { logout() }
 
-  }
+  },
 ]
 </script>
 

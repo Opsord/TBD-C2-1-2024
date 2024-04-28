@@ -76,6 +76,8 @@ async function onSubmit(event: Event) {
         <InputText type="password" v-model="state.password" />
         <Button label="Ingresar" @click="onSubmit" />
         <h1 v-if="errors">Intente de nuevo</h1>
+        <h1>¿No estas registrado?</h1>
+        <Button label="Registrarse" @click="router.push('/register')" />
 
     </div>
 

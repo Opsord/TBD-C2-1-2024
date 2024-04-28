@@ -4,6 +4,7 @@ import com.example.control2TBD.Entities.TaskEntity;
 import com.example.control2TBD.Entities.UserEntity;
 import com.example.control2TBD.Repositories.TaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.config.Task;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -22,6 +23,26 @@ public class TaskService {
         return task;
 
     }
+
+    public TaskEntity deleteTask(TaskEntity task){
+        taskRepository.deleteTask(task.getId());
+        return task;
+
+    }
+
+
+    public TaskEntity markFinished(TaskEntity task){
+        taskRepository.taskFinished(task.getId(), false);
+        return task;
+    }
+
+
+    public TaskEntity markUnfinished(TaskEntity task){
+        taskRepository.taskFinished(task.getId(), true);
+        return task;
+    }
+
+
 
 
     //List of task by state

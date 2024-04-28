@@ -19,70 +19,6 @@ const formatRelativeTime = (datetime: string) => {
 }
 
 
-const id = localStorage.getItem('idUser');
-const token = localStorage.getItem('authToken');
-
-const registerPost = async () => {
-    if (token === null) { return }
-    try {
-        const response = await fetch(`http://localhost:8091/task/create`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': token,
-            },
-            body: JSON.stringify(state.value)
-        });
-
-        if (!response.ok) {
-            throw new Error('Failed to register');
-        }
-
-        // Handle token and user data here, e.g., storing the token or redirecting the user
-    } catch (error) {
-        console.error('Registration error:', error);
-    }
-};
-
-const errors = ref("")
-async function onSubmit(event: Event) {
-    event.preventDefault(); // Prevent default form submission
-    try {
-        state.value.expiredate.toISOString().split('T')[0];
-        await registerPost();
-        visible.value = false
-
-    } catch (error) {
-        errors.value = "Contraseña debe ser de 8 caracters"
-        console.error('Validation error:', error);
-        // Handle validation errors, e.g., show error messages in the UI
-    }
-}
-
-async function onSubmitEdit(event: Event) {
-    event.preventDefault(); // Prevent default form submission
-    try {
-        stateEdit.value.expiredate.toISOString().split('T')[0];
-        await editTask();
-        visibleEdit.value = false
-
-    } catch (error) {
-        errors.value = "Contraseña debe ser de 8 caracters"
-        console.error('Validation error:', error);
-        // Handle validation errors, e.g., show error messages in the UI
-    }
-}
-
-const state = ref({
-    title: '',
-    description: '',
-    expiredate: new Date(),
-    active: true,
-    user: { id: id },
-
-
-})
-const visible = ref(false)
 const visibleEdit = ref(false)
 const editId = ref(-1)
 const stateEdit = ref({
@@ -91,12 +27,15 @@ const stateEdit = ref({
     expiredate: new Date(),
 })
 
+const token = localStorage.getItem('authToken');
+
+
 const tasks = ref()
 
 
 const finishPost = async (task: any) => {
     try {
-        const response = await fetch('http://localhost:8091/task/1/markFinished', {
+        const response = await fetch('http://localhost:8091/task/1/markUnfinished', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -174,33 +113,25 @@ async function fetchTasks() {
 }
 
 
+async function onSubmitEdit(event: Event) {
+    event.preventDefault(); // Prevent default form submission
+    try {
+        stateEdit.value.expiredate.toISOString().split('T')[0];
+        await editTask();
+        visibleEdit.value = false
+
+    } catch (error) {
+        errors.value = "Contraseña debe ser de 8 caracters"
+        console.error('Validation error:', error);
+        // Handle validation errors, e.g., show error messages in the UI
+    }
+}
+
 
 onMounted(async () => { await fetchTasks() })
 </script>
 <template>
     <div class=" h-full flex flex-col items-center  align-middle gap-4 mt-12 ">
-        <Button label="Crear nueva tarea" @click="visible = true" />
-        <Dialog v-model:visible="visible" modal header="Crear Tarea" :style="{ width: '25rem' }">
-            <span class="p-text-secondary block mb-5">Agregue la información</span>
-            <div class="flex align-items-center gap-3 mb-3">
-                <label for="titulo" class="font-semibold w-6rem">Titulo</label>
-                <InputText v-model="state.title" id="titulo" class="flex-auto" autocomplete="off" />
-            </div>
-            <div class="flex align-items-center gap-3 mb-5">
-                <label for="descripcion" class="font-semibold w-6rem">Descripción</label>
-                <InputText v-model="state.description" id="descripcion" class="flex-auto" autocomplete="off" />
-            </div>
-
-            <div class="flex justify-content-end gap-2  ">
-                <label for="expiredate" class="font-semibold w-6rem">Expiración</label>
-                <Calendar id="expiredate" v-model="state.expiredate" dateFormat="dd/mm/yy" />
-            </div>
-            <div class="flex justify-content-end gap-2 mt-4">
-                <Button type="button" label="Cancel" severity="secondary" @click="visible = false"></Button>
-                <Button type="button" label="Save" @click="onSubmit"></Button>
-            </div>
-        </Dialog>
-
 
         <Dialog v-model:visible="visibleEdit" modal header="Editar Tarea" :style="{ width: '25rem' }">
             <span class="p-text-secondary block mb-5">Agregue la información</span>
@@ -222,12 +153,10 @@ onMounted(async () => { await fetchTasks() })
                 <Button type="button" label="Save" @click="onSubmitEdit"></Button>
             </div>
         </Dialog>
-
         <OrderList v-model="tasks" dataKey="id">
             <template #header>Tareas pendientes</template>
-
             <template #item="slotProps">
-                <div class="flex flex-wrap p-2 align-items-center gap-3" v-if="slotProps.item.active === true">
+                <div class="flex flex-wrap p-2 align-items-center gap-3" v-if="slotProps.item.active == false">
                     <span class="font-bold">{{ slotProps.item.title }}</span>
                     <div class="flex-1 flex flex-column gap-2">
                         <span class="font-bold">{{ slotProps.item.description }}</span>

@@ -1,14 +1,10 @@
 package com.example.control2TBD.Controllers;
 
 import com.example.control2TBD.Entities.TaskEntity;
-import com.example.control2TBD.Entities.UserEntity;
 import com.example.control2TBD.Services.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.scheduling.config.Task;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
@@ -27,6 +23,23 @@ public class TaskController {
         return ResponseEntity.ok(task);
     }
 
+    @PostMapping("/delete")
+    public ResponseEntity<TaskEntity> deleteTask(@RequestBody TaskEntity task){
+        return ResponseEntity.ok(taskService.deleteTask(task));
+
+    }
+
+    @PostMapping("/{id}/markFinished")
+    public ResponseEntity<TaskEntity> markFinished(@RequestBody TaskEntity task){
+        return ResponseEntity.ok(taskService.markFinished(task));
+
+    }
+
+    @PostMapping("/{id}/markUnfinished")
+    public ResponseEntity<TaskEntity> markUnfinished(@RequestBody TaskEntity task){
+        return ResponseEntity.ok(taskService.markUnfinished(task));
+
+    }
 
     //state = Complete  => return lista de tareas completas
     //state = Incomplete => return lista de tareas incompletas
